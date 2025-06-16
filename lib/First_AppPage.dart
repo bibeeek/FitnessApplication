@@ -1,70 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 import 'LoginPage.dart';
 
-class StartUpPage extends StatelessWidget {
+class StartUpPage extends StatefulWidget {
   const StartUpPage({super.key});
 
   @override
+  State<StartUpPage> createState() => _StartUpPageState();
+}
+
+class _StartUpPageState extends State<StartUpPage> {
+  @override
   Widget build(BuildContext context) {
+
+    var media= MediaQuery.of(context).size;
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.cyanAccent.shade100,Colors.white],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
+        padding: EdgeInsets.all(0),
+        decoration: BoxDecoration(),
+        child: Column(
+          children: [
 
-              SizedBox(height: 20),
-              Center(
-                child: Text(
-                  "ActiveCal",
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+
+
+            Center(
+              child: Image.asset("assets/girl.png",width: media.width,fit: BoxFit.fitWidth,),
+            ),
+
+            Spacer(flex: 7),
+
+            TextButton(onPressed: (){
+              print("Button Pressed");
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+
+
+
+            }, child: Container(
+              width: double.infinity,
+              height: 60,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color:  Color.fromRGBO(0, 130, 83, 1),
+                borderRadius: BorderRadius.circular(30),
               ),
 
-              Spacer(flex: 7),
-
-              TextButton(onPressed: (){
-                print("Button Pressed");
-
-                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginRegistrationPage()));
+              child: Text("Get Started", style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold)),
 
 
-
-              }, child: Container(
-                width: double.infinity,
-                height: 60,
-
-
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.blue, Colors.green], // Define your colors
-                    begin: Alignment.centerLeft,         // Start point
-                    end: Alignment.centerRight,         // End point
-                  ),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Text("Start Your Fitness Journey", style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold)),
-
-
-              ),
-              ),
-              Spacer(flex: 1,)
-
-            ],
-          ),
+            ),
+            ),
+            Spacer(flex: 1),
+          ],
         ),
       ),
     );

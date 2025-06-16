@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'First_AppPage.dart';
+import 'SplashScreen.dart';
 import 'firebase_options.dart';
 
 
@@ -23,15 +24,17 @@ class FitnessApplication extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(137, 245, 228, 0.8,),
-              primary: Color.fromRGBO(80, 212, 225, 1.0,) ),
+
+          colorScheme: ColorScheme.dark(),
 
 
-        fontFamily: 'Lora',
+
+
+        //fontFamily: 'Lora',
 
         textTheme:TextTheme(
           bodyMedium: TextStyle(
-            color: Colors.black87,
+            color: Colors.white,
             fontSize: 24,
             fontWeight: FontWeight.normal
           ),
@@ -46,7 +49,7 @@ class FitnessApplication extends StatelessWidget {
 
       ),
 debugShowCheckedModeBanner: false,
-home: StartUpPage(),
+home: SplashScreen(),
     );
   }
 }
