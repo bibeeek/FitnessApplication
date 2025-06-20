@@ -32,10 +32,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 50,),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Image.asset("assets/gym1.png",width: double.infinity,height: 250,),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset("assets/Frame_eat.png",width: double.infinity,height: 600,),
+                ),
 
                 SizedBox(height: 20,),
 

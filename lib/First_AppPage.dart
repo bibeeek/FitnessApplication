@@ -30,6 +30,21 @@ class _StartUpPageState extends State<StartUpPage> {
               child: Image.asset("assets/girl.png",width: media.width,fit: BoxFit.fitWidth,),
             ),
 
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text("Fuel Your Journey Track Every Bite, Crush Every Rep",
+                style: TextStyle(color: Colors.black , fontSize: 24,
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text( "Your fitness companion for smarter nutrition and stronger results.",
+                style: TextStyle(color: Colors.grey , fontSize: 14,
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
             Spacer(flex: 7),
 
             TextButton(onPressed: (){
