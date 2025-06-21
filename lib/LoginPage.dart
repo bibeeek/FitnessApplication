@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(	253,253,253 ,1.0),
+      backgroundColor: Colors.blueGrey[50],
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(0),
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.grey[300],
+                    fillColor: Colors.white,
                     prefixIcon: Icon(Icons.email, color: Colors.black),
                     labelText: "Email",
                     labelStyle: TextStyle(
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: !isPasswordVisible,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.grey[300],
+                    fillColor: Colors.white,
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {

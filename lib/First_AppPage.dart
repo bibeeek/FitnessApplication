@@ -17,11 +17,12 @@ class _StartUpPageState extends State<StartUpPage> {
     var media= MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blueGrey[50],
       body: Container(
         padding: EdgeInsets.all(0),
         decoration: BoxDecoration(),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
 
 
@@ -29,23 +30,30 @@ class _StartUpPageState extends State<StartUpPage> {
             Center(
               child: Image.asset("assets/girl.png",width: media.width,fit: BoxFit.fitWidth,),
             ),
+            SizedBox(height: 70),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Align(
 
+                alignment: Alignment.centerLeft,
+                child: Text('"Fuel Your Journey,\n Track Every Bite,\n Crush Every Rep"',
+                  style: TextStyle(
+                      color: Color.fromRGBO(0, 130, 83, 1),
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text("Fuel Your Journey Track Every Bite, Crush Every Rep",
-                style: TextStyle(color: Colors.black , fontSize: 24,
+              child: Text( " Your fitness companion for smarter nutrition\n and stronger results. ",
+                style: TextStyle(color: Colors.grey[700],  fontSize: 14,
                     fontWeight: FontWeight.w700),
               ),
             ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text( "Your fitness companion for smarter nutrition and stronger results.",
-                style: TextStyle(color: Colors.grey , fontSize: 14,
-                    fontWeight: FontWeight.w700),
-              ),
-            ),
-            Spacer(flex: 7),
+            Spacer(flex: 1),
 
             TextButton(onPressed: (){
               print("Button Pressed");

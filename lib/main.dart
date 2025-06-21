@@ -24,7 +24,7 @@ class FitnessApplication extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-
+          fontFamily: "Poppins",
           colorScheme: ColorScheme.dark(),
 
 
