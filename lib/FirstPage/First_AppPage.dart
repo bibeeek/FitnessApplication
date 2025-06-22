@@ -1,7 +1,8 @@
+import 'package:fitnessapp/Genderselection.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 
-import 'LoginPage.dart';
+import '../LoginRegs/LoginPage.dart';
 
 class StartUpPage extends StatefulWidget {
   const StartUpPage({super.key});
@@ -58,7 +59,7 @@ class _StartUpPageState extends State<StartUpPage> {
             TextButton(onPressed: (){
               print("Button Pressed");
 
-              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GenderSelectionPage()));
 
 
 

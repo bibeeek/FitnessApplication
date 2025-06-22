@@ -1,4 +1,4 @@
-import 'package:fitnessapp/First_AppPage.dart';
+import 'package:fitnessapp/FirstPage/First_AppPage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -27,13 +27,15 @@ class _LoginPageState extends State<LoginPage> {
             children: [
 
               Image.asset(
-                "assets/Frame_eat.png",
+                "assets/try2.png",
                 fit: BoxFit.fitWidth,
-                height: 499,
+
+
                 width: double.infinity,
                 alignment: Alignment.topCenter,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10,),
+
               Text(
                 "Enter Valid Email & Password To Login",
                 style: TextStyle(
@@ -42,11 +44,11 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 30),
+           SizedBox(height: 5),
 
               // Email TextField
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(10.0),
                 child: TextField(
                   style: TextStyle(
                     fontSize: 16,
@@ -59,14 +61,14 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: Icon(Icons.email, color: Colors.black),
                     labelText: "Email",
                     labelStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: Colors.black54,
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     hintText: "Enter your email",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 11,
                       color: Colors.grey[600],
                     ),
                     border: OutlineInputBorder(
@@ -81,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              SizedBox(height: 10),
+              //SizedBox(height: 10),
 
               // Password TextField
               Padding(
@@ -113,14 +115,14 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: Icon(Icons.lock, color: Colors.black),
                     labelText: "Password",
                     labelStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: Colors.black54,
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     hintText: "Enter your password",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 11,
                       color: Colors.grey[600],
                     ),
                     border: OutlineInputBorder(
@@ -135,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              SizedBox(height: 30),
+
 
 
               SizedBox(height: 20),
@@ -173,7 +175,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
 
                 ],
-              ))
+              ),
+              ),
+
             ],
 
           ),

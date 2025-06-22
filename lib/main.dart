@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'First_AppPage.dart';
-import 'SplashScreen.dart';
+import 'FirstPage/First_AppPage.dart';
+import 'FirstPage/Animation/SplashScreen.dart';
 import 'firebase_options.dart';
 
 
