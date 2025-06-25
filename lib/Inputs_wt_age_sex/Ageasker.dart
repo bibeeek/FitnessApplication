@@ -1,10 +1,11 @@
+import 'package:fitnessapp/Inputs_wt_age_sex/Goal_Selection.dart';
 import 'package:fitnessapp/LoginRegs/Registration_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'Genderselection.dart';
-import 'ageasker.dart';
+
 
 class AgePicker extends StatefulWidget {
   @override
@@ -141,7 +142,7 @@ class _AgePickerState extends State<AgePicker> {
 
              ElevatedButton(onPressed: (){
 
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>GoalSelection()));
               },
 
                   style: ElevatedButton.styleFrom(

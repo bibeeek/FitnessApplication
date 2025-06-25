@@ -28,11 +28,9 @@ class _LoginPageState extends State<LoginPage> {
 
               Image.asset(
                 "assets/try2.png",
-                fit: BoxFit.fitWidth,
-
-
+                height: MediaQuery.of(context).size.height * 0.50, //
                 width: double.infinity,
-                alignment: Alignment.topCenter,
+                fit: BoxFit.fill,
               ),
               SizedBox(height: 10,),
 
@@ -51,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
@@ -87,10 +85,10 @@ class _LoginPageState extends State<LoginPage> {
 
               // Password TextField
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(10.0),
                 child: TextField(
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),

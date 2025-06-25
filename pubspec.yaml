@@ -16,6 +16,9 @@ dependencies:
   gender_picker: ^1.1.0
   step_progress_indicator: ^1.0.2
   numberpicker: ^2.1.2
+  simple_ruler_picker: ^0.1.1
+  flutter_ruler_picker: ^1.0.6
+
   # Add other dependencies here with proper indentation
 
 dev_dependencies:
@@ -27,15 +30,11 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/gym1.png
-    - assets/splashscreen.gif
-    - assets/logo.png
-    - assets/logo2.png
-    - assets/girl.png
-    - assets/img.png
-    - assets/Frame_eat.png
+
     - assets/
     - assets/AgeGenderImages/
+    - assets/GoalSelectionImg/
+    - assets/ActivityLevel/
     # Add other assets here
 
   fonts:
