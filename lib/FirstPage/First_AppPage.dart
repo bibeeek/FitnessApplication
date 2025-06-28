@@ -1,4 +1,5 @@
 import 'package:fitnessapp/Inputs_wt_age_sex/Genderselection.dart';
+import 'package:fitnessapp/landingpage/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 
@@ -59,11 +60,11 @@ class _StartUpPageState extends State<StartUpPage> {
             TextButton(onPressed: (){
               print("Button Pressed");
 
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GenderSelectionPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
 
 
-
-            }, child: Container(
+              },
+              child: Container(
               width: double.infinity,
               height: 60,
               alignment: Alignment.center,

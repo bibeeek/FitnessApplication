@@ -1,6 +1,9 @@
 import 'package:fitnessapp/Activity_level/activity_level.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+
+import '../provider_classes/Inputs_provider/goal_level_provider.dart';
 
 class GoalSelection extends StatefulWidget {
   const GoalSelection({super.key});
@@ -11,7 +14,7 @@ class GoalSelection extends StatefulWidget {
 
 class _GoalSelectionState extends State<GoalSelection> {
 
-  String? selectedGoal;
+
 
   Color mainColor=Color.fromRGBO(0, 130, 83, 1);
   TextStyle mainTextStyle=TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white);
@@ -26,6 +29,7 @@ class _GoalSelectionState extends State<GoalSelection> {
   @override
   Widget build(BuildContext context) {
     double progress=0.8;
+
     return Scaffold(
 
       backgroundColor: Colors.blueGrey[50],
@@ -40,209 +44,197 @@ class _GoalSelectionState extends State<GoalSelection> {
         centerTitle: true,
       ),
 
-      body: Column(
+      body: Consumer<GoalSelectionProvider>(builder: (context,value,child){
 
-        mainAxisAlignment: MainAxisAlignment.center,
+        return Column(
 
-        children: [
-            SizedBox(height:  MediaQuery.of(context).size.height*0.06,),
+          mainAxisAlignment: MainAxisAlignment.center,
 
-          Column(
-            children: [
-              SizedBox(
-                height:  MediaQuery.of(context).size.height*0.6,
-                child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: false,
-                  padding: EdgeInsets.all(20),
-                  children: [
+          children: [
+            SizedBox(height:  MediaQuery.of(context).size.height*0.03,),
+            Text("Select Your Goal",style: TextStyle(fontSize: 25,color: Colors.black,fontWeight: FontWeight.bold),),
 
-                    //Lose Weight
-                    Card(
+            SizedBox(height:  MediaQuery.of(context).size.height*0.01,),
 
-                      color: mainColor,
-                      child: ListTile(
+            Column(
+              children: [
+                SizedBox(
+                  height:  MediaQuery.of(context).size.height*0.6,
+                  child: ListView(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: false,
+                    padding: EdgeInsets.all(20),
+                    children: [
+
+                      //Lose Weight
+                      Card(
+
+                        color: mainColor,
+                        child: ListTile(
 
 
-                        onTap: (){
-                         setState(() {
-                           selectedGoal='lose';
-                         });
-                        },
-                        title: Text("Lose Weight"),
-                        titleTextStyle:mainTextStyle,
-                        leading: slimimg,
-                        trailing: Radio(
-                            value: 'lose',
-                            groupValue: selectedGoal,
-                            onChanged:(value){
-                              setState(() {
-                                selectedGoal=value;
-                              });
-                            }
+                          onTap: (){
+                            value.setSelectedGoal('lose');
+                          },
+                          title: Text("Lose Weight"),
+                          titleTextStyle:mainTextStyle,
+                          leading: slimimg,
+                          trailing: Radio(
+                              value: 'lose',
+                              groupValue: value.getSelectedGoal,
+                              onChanged:(newValue){
+
+                                value.setSelectedGoal(newValue);
+                              }
+                          ),
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 14,),
-                    //Gain Weight
-                    Card(
-                      color: mainColor,
-                      child: ListTile(
-                        onTap: (){
-                          setState(() {
-                            selectedGoal='gain';
-                          });
-                        },
-                        title: Text("Gain Weight"),
-                        titleTextStyle:mainTextStyle,
-                        leading: gainimg,
-                        trailing: Radio(
-                            value: 'gain',
-                            groupValue: selectedGoal,
-                            onChanged:(value){
-                              setState(() {
-                                selectedGoal=value;
-                              });
-                            }
+                      SizedBox(height: 14,),
+                      //Gain Weight
+                      Card(
+                        color: mainColor,
+                        child: ListTile(
+
+                          onTap: (){
+                            value.setSelectedGoal('gain');
+                          },
+                          title: Text("Gain Weight"),
+                          titleTextStyle:mainTextStyle,
+                          leading: gainimg,
+                          trailing: Radio(
+                              value: 'gain',
+                              groupValue: value.getSelectedGoal,
+                              onChanged:(newvalue){
+                              value.setSelectedGoal(newvalue);
+                              }
+                          ),
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 14,),
+                      SizedBox(height: 14,),
 
-                    //Maintain Weight
-                    Card(
-                      color: mainColor,
-                      child: ListTile(
-                        onTap: (){
-                          setState(() {
-                            selectedGoal='maintain';
-                          });
-                        },
-                        title: Text("Maintain Weight"),
-                        titleTextStyle:mainTextStyle,
-                        leading: maintainimg,
-                        trailing: Radio(
-                            value: 'maintain',
-                            groupValue: selectedGoal,
-                            onChanged:(value){
-                              setState(() {
-                                selectedGoal=value;
-                              });
-                            }
+                      //Maintain Weight
+                      Card(
+                        color: mainColor,
+                        child: ListTile(
+
+                          onTap: (){
+                            value.setSelectedGoal('maintain');
+                          },
+                          title: Text("Maintain Weight"),
+                          titleTextStyle:mainTextStyle,
+                          leading: maintainimg,
+                          trailing: Radio(
+                              value: 'maintain',
+                              groupValue: value.getSelectedGoal,
+                              onChanged:(newvalue){
+                                value.setSelectedGoal(newvalue);
+                              }
+                          ),
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 14,),
+                      SizedBox(height: 14,),
 
-                    //StayFit
+                      //StayFit
 
-                    Card(
-                      color: mainColor,
-                      child: ListTile(
-                        onTap: (){
-                          setState(() {
-                            selectedGoal='fit';
-                          });
-                        },
-                        title: Text("Stay Fit"),
-                        titleTextStyle:mainTextStyle,
-                        leading: fitimg,
-                        trailing: Radio(
-                            value: 'fit',
-                            groupValue: selectedGoal,
-                            onChanged:(value){
-                              setState(() {
-                                selectedGoal=value;
-                              });
-                            }
+                      Card(
+                        color: mainColor,
+                        child: ListTile(
+
+                          onTap: (){
+                            value.setSelectedGoal('fit');
+                          },
+                          title: Text("Stay Fit"),
+                          titleTextStyle:mainTextStyle,
+                          leading: fitimg,
+                          trailing: Radio(
+                              value: 'fit',
+                              groupValue: value.getSelectedGoal,
+                              onChanged:(newvalue){
+                                value.setSelectedGoal(newvalue);
+                              }
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 14,),
+                      SizedBox(height: 14,),
 
-                    //Track Calories
-                    Card(
-                      color: mainColor,
-                      child: ListTile(
-                        onTap: (){
-                          setState(() {
-                            selectedGoal='track';
-                          });
-                        },
-                        title: Text("Track Calories"),
-                        titleTextStyle:mainTextStyle,
-                        leading: trackimg,
-                        trailing: Radio(
-                            value: 'track',
-                            groupValue: selectedGoal,
-                            onChanged:(value){
-                              setState(() {
-                                selectedGoal=value;
-                              });
-                            }
+                      //Track Calories
+                      Card(
+                        color: mainColor,
+                        child: ListTile(
+                          onTap: (){
+                            value.setSelectedGoal('track');
+                          },
+                          title: Text("Track Calories"),
+                          titleTextStyle:mainTextStyle,
+                          leading: trackimg,
+                          trailing: Radio(
+                              value: 'track',
+                              groupValue: value.getSelectedGoal,
+                              onChanged:(newvalue){
+                                value.setSelectedGoal(newvalue);
+                              }
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 14,),
-                    //Eat Healthier
+                      SizedBox(height: 14,),
+                      //Eat Healthier
 
-                    Card(
-                      color: mainColor,
-                      child: ListTile(
-                        onTap: (){
-                          setState(() {
-                            selectedGoal='eat';
-                          });
-                        },
-                        title: Text("Eat Healthier"),
-                        titleTextStyle:mainTextStyle,
-                        leading: eathealthyimg,
-                        trailing: Radio(
+                      Card(
+                        color: mainColor,
+                        child: ListTile(
+                          onTap: (){
+                            value.setSelectedGoal('eat');
+                          },
+                          title: Text("Eat Healthier"),
+                          titleTextStyle:mainTextStyle,
+                          leading: eathealthyimg,
+                          trailing: Radio(
 
-                            value: 'eat',
-                            groupValue: selectedGoal,
-                            onChanged:(value){
-                              setState(() {
-                                selectedGoal=value;
-                              });
-                            }
+                              value: 'eat',
+                              groupValue: value.getSelectedGoal,
+                              onChanged:(newvalue){
+                                value.setSelectedGoal(newvalue);
+                              }
+                          ),
                         ),
                       ),
-                    ),
 
-                  ],
+                    ],
 
+                  ),
                 ),
-              ),
-            ],
-          ),
-
-
-
-          if(selectedGoal!=null)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: ElevatedButton(onPressed: (){
-
-
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ActivityLevel()));
-              },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(150, 50),
-                  elevation: 2,
-                  backgroundColor: mainColor,
-                  shadowColor:  mainColor,
-
-                ),
-                  child: Text("Continue",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.white),),
-              ),
+              ],
             ),
-          Spacer(flex: 1,),
-        ],
-      ),
+
+
+
+            if(value.getSelectedGoal!=null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: ElevatedButton(onPressed: (){
+
+
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ActivityLevel()));
+                },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(150, 50),
+                    elevation: 2,
+                    backgroundColor: mainColor,
+                    shadowColor:  mainColor,
+
+                  ),
+                  child: Text("Continue",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.white),),
+                ),
+              ),
+            Spacer(flex: 1,),
+          ],
+        );
+
+
+      }),
 
       bottomNavigationBar:   Container(
         height: 70,

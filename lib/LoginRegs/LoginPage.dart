@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitnessapp/FirstPage/First_AppPage.dart';
+import 'package:fitnessapp/Inputs_wt_age_sex/Genderselection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +15,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isPasswordVisible = false;
+
+  var emailController= TextEditingController();
+  var passwordController= TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +53,14 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+
+                  controller: emailController,
+                  textInputAction: TextInputAction.next,
+                  autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: [AutofillHints.email],
+
+
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -85,8 +98,11 @@ class _LoginPageState extends State<LoginPage> {
 
               // Password TextField
               Padding(
+
+
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  controller: passwordController,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -141,7 +157,43 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical:5 ,horizontal: 80),
-                child: ElevatedButton(onPressed: (){
+                child: ElevatedButton(onPressed: () async {
+
+                  String email=emailController.text.trim();
+                  String pass=passwordController.text.trim();
+
+                  if(email.isEmpty){
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Enter Email")));
+                  }
+                  else if(pass.isEmpty){
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Enter Password")));
+                  }
+
+                  else{
+
+
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass).then((value) {
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login Successful")));
+                      debugPrint("Login Successful");
+
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (_) => GenderSelectionPage()),
+                            (route) => false, // removes all previous routes
+                      );
+
+
+                    }).onError((error, stackTrace) {
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
+
+                    });
+
+                  }
+
 
                 },
                   style: ElevatedButton.styleFrom(

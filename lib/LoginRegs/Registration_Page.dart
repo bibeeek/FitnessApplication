@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +15,13 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
 
+
+
   bool  isPasswordVisible = false;
+
+    var emailController= TextEditingController();
+    var passwordController= TextEditingController();
+
   @override
 
 
@@ -48,6 +57,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextField(
+
+                    controller: emailController,
+                    textInputAction: TextInputAction.next,
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    autofillHints: [AutofillHints.email],
+
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -87,6 +103,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextField(
+
+                    controller: passwordController,
+
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -141,7 +160,42 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical:5 ,horizontal: 80),
-                  child: ElevatedButton(onPressed: (){
+                  child: ElevatedButton(onPressed: () async {
+                    String mail=emailController.text.trim();
+                    String pass=passwordController.text.trim();
+
+
+                    if(mail.isEmpty){
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Enter Email")));
+                    }
+                    else if(pass.isEmpty){
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Enter Password")));
+                    }
+                    else{
+
+                    await  FirebaseAuth.instance.createUserWithEmailAndPassword(email: mail, password: pass).then((value) {
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Registration Successful")));
+                      debugPrint("Registration Successful");
+
+
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+
+
+                      }).onError((error, stackTrace) {
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
+
+
+
+                    });
+
+
+                    }
+
+
 
                   },
                     style: ElevatedButton.styleFrom(
