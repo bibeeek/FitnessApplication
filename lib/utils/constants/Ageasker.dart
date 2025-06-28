@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-import 'Genderselection.dart';
-import 'ageasker.dart';
+
+
 
 class AgePicker extends StatefulWidget {
   @override

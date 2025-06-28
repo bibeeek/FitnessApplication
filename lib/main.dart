@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitnessapp/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-import 'FirstPage/First_AppPage.dart';
-import 'FirstPage/Animation/SplashScreen.dart';
-import 'firebase_options.dart';
+
+import 'Firebase/firebase_options.dart';
+import 'features/screens/onboarding/FirstPage/Animation/SplashScreen.dart';
 
 
 
@@ -22,34 +24,12 @@ class FitnessApplication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          fontFamily: "Poppins",
-          colorScheme: ColorScheme.dark(),
-
-
-
-
-        //fontFamily: 'Lora',
-
-        textTheme:TextTheme(
-          bodyMedium: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.normal
-          ),
-
-          bodyLarge: TextStyle(
-              color: Colors.black87,
-            fontSize: 24,
-            fontWeight: FontWeight.bold
-          ),
-
-        )
-
-      ),
+    return GetMaterialApp(
+     themeMode: ThemeMode.system,
+  theme: TAppTheme.lightTheme,
+  home: const SplashScreen(),
 debugShowCheckedModeBanner: false,
-home: SplashScreen(),
+
     );
   }
 }

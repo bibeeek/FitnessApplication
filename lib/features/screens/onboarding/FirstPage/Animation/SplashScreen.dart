@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         pageTransitionType: PageTransitionType.topToBottom,
 
 
-        nextScreen: StartUpPage(),
+        nextScreen: OnboardingScreen(),
 
         duration:3000,
 
