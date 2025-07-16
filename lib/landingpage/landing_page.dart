@@ -1,8 +1,11 @@
 import 'package:fitnessapp/DashBoard_page/dashboard.dart';
+import 'package:fitnessapp/DashBoard_page/homepage.dart';
 import 'package:fitnessapp/FirstPage/First_AppPage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
+import '../FoodApi/food-providerclass/foodprovider.dart';
 import '../Inputs_wt_age_sex/Genderselection.dart';
 import '../LoginRegs/LoginPage.dart' show LoginPage;
 import '../Shared_pref_help/load_provider_from_pref.dart';
@@ -33,11 +36,16 @@ class _LandingPageState extends State<LandingPage> {
     } else if (hasUserData) {
 
       await loadSavedDataIntoProviders(context);
+      await Provider.of<MealProvider>(context, listen: false).loadMealsFromPrefs();
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashBoard()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainDashboardWithTabs()));
     } else {
+
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => GenderSelectionPage()));
     }
+    await Provider.of<MealProvider>(context, listen: false).loadMealsFromPrefs();
+
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainDashboardWithTabs()));
   }
 
   @override
@@ -49,4 +57,3 @@ class _LandingPageState extends State<LandingPage> {
 }
 
 
-//https://chatgpt.com/s/t_685eb487afa88191a0675396162f93cd

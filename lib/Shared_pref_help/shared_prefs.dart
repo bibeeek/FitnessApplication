@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefsHelper {
+
   static Future<void> saveUserInput({
     required String gender,
     required int age,
@@ -8,7 +9,7 @@ class SharedPrefsHelper {
     required String activityLevel,
     required double currentWeight,
     double? targetWeight, // nullable for maintain/fit etc.
-    int? goalTime,         // nullable for maintain/fit etc.
+    double? goalTime,         // nullable for maintain/fit etc.
     required double height,
   }) async {
     final prefs = await SharedPreferences.getInstance();
@@ -22,7 +23,7 @@ class SharedPrefsHelper {
       await prefs.setDouble('targetWeight', targetWeight);
     }
     if (goalTime != null) {
-      await prefs.setInt('goalTime', goalTime);
+      await prefs.setDouble('goalTime', goalTime);
     }
     await prefs.setDouble('height', height);
 
@@ -37,6 +38,7 @@ class SharedPrefsHelper {
   static Future<Map<String, dynamic>> loadUserInput() async {
     final prefs = await SharedPreferences.getInstance();
     return {
+
       'gender': prefs.getString('gender'),
       'age': prefs.getInt('age'),
       'goal': prefs.getString('goal'),
@@ -51,7 +53,7 @@ class SharedPrefsHelper {
   static Future<bool> hasUserData() async {
     final prefs = await SharedPreferences.getInstance();
 
-    // Check required keys (you can customize this)
+
     bool hasAllKeys = prefs.containsKey('gender') &&
         prefs.containsKey('age') &&
         prefs.containsKey('goal') &&
@@ -59,7 +61,7 @@ class SharedPrefsHelper {
         prefs.containsKey('currentWeight') &&
         prefs.containsKey('height');
 
-    // If your app depends on targetWeight and goalTime for some goals, you can skip checking those here
+
     return hasAllKeys;
   }
 

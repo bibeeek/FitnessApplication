@@ -1,24 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitnessapp/Activity_level/activity_level.dart';
 import 'package:fitnessapp/DashBoard_page/dashboard.dart';
-import 'package:fitnessapp/Inputs_wt_age_sex/Current_weight.dart';
-import 'package:fitnessapp/Inputs_wt_age_sex/Goal_Selection.dart';
-import 'package:fitnessapp/Inputs_wt_age_sex/goal_Achieve_time.dart';
-import 'package:fitnessapp/LoginRegs/Registration_Page.dart';
+import 'package:fitnessapp/DashBoard_page/homepage.dart';
+import 'package:fitnessapp/landingpage/landing_page.dart';
+
 import 'package:fitnessapp/provider_classes/Inputs_provider/Genderselection_provider.dart';
 import 'package:fitnessapp/provider_classes/Inputs_provider/activitylevel_provider.dart';
 import 'package:fitnessapp/provider_classes/Inputs_provider/all_inputs_provider.dart';
 import 'package:fitnessapp/provider_classes/Inputs_provider/goal_level_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-import '../FirstPage/First_AppPage.dart';
+
 import '../FirstPage/Animation/SplashScreen.dart';
-import '../Inputs_wt_age_sex/Genderselection.dart';
+import '../FoodApi/food-providerclass/foodprovider.dart';
 import '../firebase_options.dart';
-import '../landingpage/landing_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +25,11 @@ void main() async {
 }
 
 class FitnessApplication extends StatelessWidget {
-  const FitnessApplication({Key? key}) : super(key: key);
+  const FitnessApplication(
+      {
+    Key? key
+      }
+      ) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +41,15 @@ class FitnessApplication extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AllInputsProvider()),
         ChangeNotifierProvider(create: (_) => GoalSelectionProvider()),
         ChangeNotifierProvider(create: (_) => ActivityLevelProvider()),
+        ChangeNotifierProvider(create: (_) => MealProvider()),
+
       ],
       child: MaterialApp(
 
 
 
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: LandingPage(),
       ),
     );
   }

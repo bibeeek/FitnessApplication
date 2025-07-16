@@ -1,4 +1,5 @@
 import 'package:fitnessapp/DashBoard_page/dashboard.dart';
+import 'package:fitnessapp/DashBoard_page/homepage.dart';
 import 'package:fitnessapp/LoginRegs/LoginPage.dart';
 import 'package:fitnessapp/provider_classes/Inputs_provider/all_inputs_provider.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +131,7 @@ class _CurrentHeightState extends State<CurrentHeight> {
                       ? inputProvider.getTargetWeight
                       : null,
                   goalTime: goalProvider.getSelectedGoal == 'gain' || goalProvider.getSelectedGoal == 'lose'
-                      ? inputProvider.getGoalAchieveTime.toInt()
+                      ? inputProvider.getGoalAchieveTime
                       : null,
                   height: inputProvider.getCurrentHeight,
                 );
@@ -141,7 +142,7 @@ class _CurrentHeightState extends State<CurrentHeight> {
 
 
 
-                Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoard()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MainDashboardWithTabs()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromRGBO(0, 130, 83, 1),

@@ -24,6 +24,11 @@ class _GoalAchieveTimeState extends State<GoalAchieveTime> {
 
     final weight= Provider.of<AllInputsProvider>(context);
 
+    double goaltime=weight.getGoalAchieveTime;
+    if(goaltime<0.25){
+      goaltime=0.25;
+    }
+
 
     return Scaffold(
 
@@ -57,7 +62,7 @@ class _GoalAchieveTimeState extends State<GoalAchieveTime> {
 
               min: 0.25,
               max:1.0,
-              value: weight.getGoalAchieveTime,
+              value: goaltime,
               divisions: 3,
               label:  weight.getGoalAchieveTime.toString(),
               thumbColor: Colors.blueAccent,

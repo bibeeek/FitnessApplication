@@ -3,17 +3,17 @@ import 'package:gender_picker/source/enums.dart';
 
 class genderProvider with ChangeNotifier{
 
-  Gender? selectedgender;
-  Gender? get getGender => selectedgender;
+  Gender? _selectedgender;
+  Gender? get getGender => _selectedgender;
 
 void  setGender(Gender? value){
 
-  selectedgender=value;
+  _selectedgender=value;
   notifyListeners();
 
 }
 void reset(){
-  selectedgender=null;
+  _selectedgender=null;
   notifyListeners();
 }
 

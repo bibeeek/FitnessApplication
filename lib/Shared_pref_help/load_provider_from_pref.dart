@@ -27,13 +27,14 @@ Future<void> loadSavedDataIntoProviders(BuildContext context) async {
   inputProvider.setSelectedAge(prefs.getInt('age') ?? 18);
   goalProvider.setSelectedGoal(prefs.getString('goal') ?? '');
   activityProvider.setSelectedLevel(prefs.getString('activity') ?? '');
-  inputProvider.setCurrentWeight(prefs.getDouble('currentWeight') ?? 0.0);
+  inputProvider.setCurrentWeight(prefs.getDouble('currentWeight') ?? 60.0);
+
   final targetWeight = prefs.getDouble('targetWeight');
   if (targetWeight != null) {
     inputProvider.setTargetWeight(targetWeight);
   }
 
-  final goalTime = prefs.getInt('goalTime');
+  final goalTime = prefs.getDouble('goalTime');
   if (goalTime != null) {
     inputProvider.setGoalAchieveTime(goalTime.toDouble());
   }

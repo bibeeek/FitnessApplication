@@ -110,7 +110,7 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
               builder: (context, value, child) {
                 return ElevatedButton(
                   onPressed: () {
-                    if (value.selectedgender == null) {
+                    if (value.getGender == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -186,14 +186,14 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
             onChanged: (Gender? gender) {
               value.setGender(gender);
 
-              print(value.selectedgender);
+              print(value.getGender);
             },
 
             maleText: '',
             femaleText: '',
 
             showOtherGender: false,
-            selectedGender: value.selectedgender,
+            selectedGender: value.getGender,
             size: 100,
             opacityOfGradient: 0.1,
 

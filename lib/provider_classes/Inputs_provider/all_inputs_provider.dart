@@ -103,16 +103,7 @@ class AllInputsProvider with ChangeNotifier{
 
   }
 
-  void reset() {
-    _selectedAge = 18;
-    _currentWeight = 0.0;
-    _targetWeight = null;
-    _goalAchieveTime = 0;
-    _currentHeight = 0.0;
-    _iskg = true;
-    _targetSliderMoved = false;
-    notifyListeners();
-  }
+
 
 
 
