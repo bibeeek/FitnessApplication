@@ -117,9 +117,15 @@ class _FoodSearchPageState extends State<FoodSearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey[50],
+
+     
+
       appBar: AppBar(
-        title: Text("Add food to ${widget.meal}"),
-        backgroundColor: Colors.green,
+
+        title: Text("Add food to ${widget.meal}",),
+        titleTextStyle: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
+        backgroundColor:Color.fromRGBO(0, 130, 83, 1),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -132,8 +138,11 @@ class _FoodSearchPageState extends State<FoodSearchPage> {
               },
               decoration: InputDecoration(
                 labelText: 'Search food',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 suffixIcon: Icon(Icons.search),
+                suffixIconColor: Colors.green,
               ),
             ),
             const SizedBox(height: 16),
@@ -143,17 +152,33 @@ class _FoodSearchPageState extends State<FoodSearchPage> {
               Text('No results yet')
             else
               Expanded(
-                child: ListView.builder(
-                  itemCount: _results.length,
-                  itemBuilder: (_, index) {
-                    final food = _results[index];
-                    return ListTile(
-                      title: Text(food['food_name'] ?? 'No name'),
-                      subtitle: Text(food['brand_name'] ?? ''),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                      onTap: () => _onFoodTap(food),
-                    );
-                  },
+                child: Card(
+                  color: Colors.blueGrey[50],
+
+
+                 elevation: 0,
+
+                  child: ListView.builder(
+                    itemCount: _results.length,
+                    itemBuilder: (_, index) {
+                      final food = _results[index];
+                      return ListTile(
+
+                        tileColor:  Color.fromRGBO(0, 130, 83, 1),
+                        titleTextStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),
+                        subtitleTextStyle: TextStyle(color: Colors.white),
+                        leading: Icon(Icons.fastfood,color: Colors.white,),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(19.0),
+                          side: BorderSide(color:Colors.blueGrey.shade50, width: 4.0),
+                        ),
+                        title: Text(food['food_name'] ?? 'No name'),
+                        subtitle: Text(food['brand_name'] ?? ''),
+                        trailing: Icon(Icons.arrow_forward_ios,color: Colors.white,),
+                        onTap: () => _onFoodTap(food),
+                      );
+                    },
+                  ),
                 ),
               ),
           ],

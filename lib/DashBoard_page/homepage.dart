@@ -1,3 +1,4 @@
+import 'package:fitnessapp/DashBoard_page/Futurepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,7 @@ class _MainDashboardWithTabsState extends State<MainDashboardWithTabs> {
   static final List<Widget> _pages = [
     DashBoard(),         // Your existing dashboard
     FoodLogPage(),       // New food log page
-    Center(child: Text('Coming Soon')), // Placeholder page
+    MorePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -37,12 +38,18 @@ class _MainDashboardWithTabsState extends State<MainDashboardWithTabs> {
       body: _pages[_selectedIndex],
 
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor:  Color.fromRGBO(0, 130, 83, 1),
+        selectedLabelStyle: TextStyle(color: Colors.white,fontSize: 10,fontWeight: FontWeight.bold),
+        unselectedLabelStyle: TextStyle(color: Colors.white,fontSize: 10,fontWeight: FontWeight.bold),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.fastfood), label: 'Food Log'),
-          BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'More'),
+          BottomNavigationBarItem(icon: Icon(Icons.home,color: Colors.white,), label:'Home',),
+          BottomNavigationBarItem(icon: Icon(Icons.fastfood,color: Colors.white,), label: 'Food Log'),
+          BottomNavigationBarItem(icon: Icon(Icons.more_horiz,color: Colors.white,), label: 'More'),
         ],
       ),
     );

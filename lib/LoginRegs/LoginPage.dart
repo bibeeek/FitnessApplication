@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 
 import 'Registration_Page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPaage extends StatefulWidget {
+  const LoginPaage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPaage> createState() => _LoginPaageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPaageState extends State<LoginPaage> {
   bool isPasswordVisible = false;
 
   var emailController= TextEditingController();

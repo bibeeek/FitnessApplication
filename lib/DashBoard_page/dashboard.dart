@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitnessapp/STEPCOUNTER/stepcounter.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:percentages_with_animation/percentages_with_animation.dart';
@@ -13,6 +14,7 @@ import '../provider_classes/Inputs_provider/Genderselection_provider.dart';
 import '../provider_classes/Inputs_provider/activitylevel_provider.dart';
 import '../provider_classes/Inputs_provider/all_inputs_provider.dart';
 import '../provider_classes/Inputs_provider/goal_level_provider.dart';
+import '../provider_classes/Inputs_provider/healthdataprovider.dart';
 import 'FoodLogginPagee.dart';
 
 class MacroCalculator {
@@ -103,11 +105,13 @@ class _DashBoardState extends State<DashBoard> {
       child: Scaffold(
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          automaticallyImplyLeading: false,
+          toolbarHeight: 70,
+          backgroundColor: Color.fromRGBO(0, 130, 83, 1),
           elevation: 0,
-          title: const Text("Today's Goals", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+          title: const Text("Today's Goal", style: TextStyle(fontSize: 22,color: Colors.white, fontWeight: FontWeight.bold)),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_today_outlined)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_today_outlined,color: Colors.white,)),
           ],
         ),
         body: SingleChildScrollView(
@@ -156,12 +160,24 @@ class _DashBoardState extends State<DashBoard> {
                               TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(width: 25),
-                            Text(
-                              '${reqCal.toStringAsFixed(0)} kcal',
-                              style: TextStyle(
-                                color: overLimit ? Colors.redAccent.shade100 : Colors.green,
-                                fontSize: 20,
-                              ),
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Your Goal",style: TextStyle(
+                                  color: overLimit ? Colors.redAccent.shade100 : Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),),
+                                Text(
+                                  '${reqCal.toStringAsFixed(0)} kcal',
+                                  style: TextStyle(
+                                    color: overLimit ? Colors.redAccent.shade100 : Colors.green,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         );
@@ -196,45 +212,98 @@ class _DashBoardState extends State<DashBoard> {
 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Calories: ${totalCalories.toStringAsFixed(0)} / ${reqCal.toStringAsFixed(0)} kcal',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            LinearProgressIndicator(
-                              value: calPercent,
-                              color: calColor,
-                              backgroundColor: Colors.grey.shade300,
-                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+
+
+                                children: [
+
+                                  Text(
+                                    'Calories: ${totalCalories.toStringAsFixed(0)} / ${reqCal.toStringAsFixed(0)} kcal',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 5,),
+                                  SizedBox(
+                                    width:150,
+                                    child: LinearProgressIndicator(
+                                      value: calPercent,
+                                      color: calColor,
+                                      backgroundColor: Colors.grey.shade300,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Protein: ${totalProtein.toStringAsFixed(1)} g / ${reqProtein.toStringAsFixed(1)} g',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 5,),
+
+                                  SizedBox(
+                                    width:150,
+                                    child: LinearProgressIndicator(
+                                      value: proteinPercent,
+                                      color: proteinPercent >= 1 ? Colors.red : Colors.blue,
+                                      backgroundColor: Colors.grey.shade300,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                            ],),
+
+
                             SizedBox(height: 8),
-                            Text(
-                              'Protein: ${totalProtein.toStringAsFixed(1)} g / ${reqProtein.toStringAsFixed(1)} g',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            LinearProgressIndicator(
-                              value: proteinPercent,
-                              color: proteinPercent >= 1 ? Colors.red : Colors.blue,
-                              backgroundColor: Colors.grey.shade300,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Carbs: ${totalCarbs.toStringAsFixed(1)} g / ${reqCarbs.toStringAsFixed(1)} g',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            LinearProgressIndicator(
-                              value: carbPercent,
-                              color: carbPercent >= 1 ? Colors.red : Colors.orange,
-                              backgroundColor: Colors.grey.shade300,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Fat: ${totalFat.toStringAsFixed(1)} g / ${reqFat.toStringAsFixed(1)} g',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            LinearProgressIndicator(
-                              value: fatPercent,
-                              color: fatPercent >= 1 ? Colors.red : Colors.purple,
-                              backgroundColor: Colors.grey.shade300,
+
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Carbs: ${totalCarbs.toStringAsFixed(1)} g / ${reqCarbs.toStringAsFixed(1)} g',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      width: 150,
+                                      child: LinearProgressIndicator(
+                                        value: carbPercent,
+                                        color: carbPercent >= 1 ? Colors.red : Colors.orange,
+                                        backgroundColor: Colors.grey.shade300,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Fat: ${totalFat.toStringAsFixed(1)}  g  / ${reqFat.toStringAsFixed(1)}  g',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      width:150,
+                                      child: LinearProgressIndicator(
+                                        value: fatPercent,
+                                        color: fatPercent >= 1 ? Colors.red : Colors.yellow,
+                                        backgroundColor: Colors.grey.shade300,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
 
                           ],
@@ -246,41 +315,73 @@ class _DashBoardState extends State<DashBoard> {
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
+              const SizedBox(height: 7),
 
-                  final prefs = await SharedPreferences.getInstance();
-                  await prefs.clear();
 
-                  // Reset the meal data in provider to clear in-memory state
-                  Provider.of<MealProvider>(context, listen: false).resetMeals();
+              Consumer<HealthLevelProvider>(
+                builder: (context, provider, _) {
+                  final int goal = 3500; // or set based on gender
+                  final int current = provider.waterIntake;
+                  final double progress = (current / goal).clamp(0, 1);
 
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (_) => StartUpPage()),
-                        (route) => false,
+                  return Container(
+
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue.shade50,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("💧 Water Intake", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        SizedBox(height: 8),
+                        LinearProgressIndicator(
+                          value: progress,
+                          minHeight: 8,
+                          backgroundColor: Colors.blue.shade100,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                        ),
+                        SizedBox(height: 8),
+                        Text("$current ml / $goal ml"),
+                        SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                provider.incrementWaterIntake(250); // Add 250ml
+                              },
+                              icon: Icon(Icons.add,color: Colors.white,),
+                              label: Text("Add 250ml",style: TextStyle(color: Colors.white)),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent,
+                              ),
+                            ),
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                if (provider.waterIntake >= 250) {
+                                  provider.incrementWaterIntake(-250); // Subtract 250ml
+                                }
+                              },
+                              icon: Icon(Icons.remove,color: Colors.white,),
+                              label: Text("Remove 250ml",style: TextStyle(color: Colors.white)),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.redAccent,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                ),
-                child: const Text(
-                  "Logout",
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                ),
               ),
+              SizedBox(height: 7,),
+              StepCounterWidget()
 
-              SizedBox(height: 70),
-              Consumer<MealProvider>(
-                builder: (context, mealProvider, _) {
-                  final totalCalories = mealProvider.totalCalories;
-                  return Text("Calories: ${totalCalories.toStringAsFixed(0)} kcal");
-                },
-              )
+
+
             ],
           ),
         ),

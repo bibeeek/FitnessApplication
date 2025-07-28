@@ -181,7 +181,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       debugPrint("Registration Successful");
 
 
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPaage()));
 
 
                       }).onError((error, stackTrace) {
@@ -222,7 +222,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
                     TextSpan(text: 'Sign In',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.blue.shade900)
                         ,recognizer: TapGestureRecognizer()..onTap = (){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPaage()));
                         }
                     ),
 

@@ -60,7 +60,7 @@ class _StartUpPageState extends State<StartUpPage> {
             TextButton(onPressed: (){
               print("Button Pressed");
 
-              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPaage()));
 
 
               },

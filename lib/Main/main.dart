@@ -1,13 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitnessapp/DashBoard_page/dashboard.dart';
 import 'package:fitnessapp/DashBoard_page/homepage.dart';
+import 'package:fitnessapp/FirstPage/Onboardingscreen.dart';
+import 'package:fitnessapp/STEPCOUNTER/stepcounterprovider.dart';
 import 'package:fitnessapp/landingpage/landing_page.dart';
 
 import 'package:fitnessapp/provider_classes/Inputs_provider/Genderselection_provider.dart';
 import 'package:fitnessapp/provider_classes/Inputs_provider/activitylevel_provider.dart';
 import 'package:fitnessapp/provider_classes/Inputs_provider/all_inputs_provider.dart';
 import 'package:fitnessapp/provider_classes/Inputs_provider/goal_level_provider.dart';
+import 'package:fitnessapp/provider_classes/Inputs_provider/healthdataprovider.dart';
+import 'package:fitnessapp/pushnotification.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 
@@ -21,6 +26,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await Firebasemsg().initFCM();
   runApp(FitnessApplication());
 }
 
@@ -33,7 +39,9 @@ class FitnessApplication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return
+
+      MultiProvider(
 
 
       providers: [
@@ -42,15 +50,16 @@ class FitnessApplication extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GoalSelectionProvider()),
         ChangeNotifierProvider(create: (_) => ActivityLevelProvider()),
         ChangeNotifierProvider(create: (_) => MealProvider()),
+        ChangeNotifierProvider(create: (_) => HealthLevelProvider()),
+        ChangeNotifierProvider(create: (_) => StepProvider()),
+
+
 
       ],
-      child: MaterialApp(
-
-
-
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LandingPage(),
-      ),
+        home: SplashScreen(),
+      )
     );
   }
 }

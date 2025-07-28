@@ -143,15 +143,25 @@ class _ServingInputPageState extends State<ServingInputPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    Image nutri=Image.asset('assets/GoalSelectionImg/nutrition-plan.png',height: 30,width: 30);
+
+
     final mealProvider = Provider.of<MealProvider>(context);
     final nutrition = _calculateNutrition();
 
     final unit = _selectedServing?['metric_serving_unit'] ?? 'g';
 
     return Scaffold(
+      backgroundColor: Colors.blueGrey[50],
+
       appBar: AppBar(
+
+        centerTitle: true,
         title: Text(widget.foodName),
-        backgroundColor: Colors.green,
+        titleTextStyle: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
+
+        backgroundColor:  Color.fromRGBO(0, 130, 83, 1),
       ),
       body: _loading
           ? Center(child: CircularProgressIndicator())
@@ -160,77 +170,150 @@ class _ServingInputPageState extends State<ServingInputPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Select Serving Size:"),
+            Text("Select Serving Size:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
             const SizedBox(height: 8),
-            DropdownButton<Map<String, dynamic>>(
-              value: _selectedServing,
-              items: _servingsList.map((serving) {
-                final amount = serving['metric_serving_amount'] ?? serving['serving_amount'];
-                final unit = serving['metric_serving_unit'] ?? serving['serving_unit'] ?? '';
-                final desc = serving['serving_description'] ?? '';
-                final displayText = '$amount $unit ($desc)';
-                return DropdownMenuItem(
-                  value: serving,
-                  child: Text(displayText),
-                );
-              }).toList(),
-              onChanged: (val) {
-                if (val != null) {
-                  setState(() {
-                    _selectedServing = val;
-                    // Reset serving amount to this serving's amount:
-                    _servingAmount = double.tryParse(val['metric_serving_amount'] ?? '100') ?? 100;
-                    _controller.text = _servingAmount.toString();
-                  });
-                }
-              },
+
+
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Color.fromRGBO(0, 130, 83, 1),width: 2),
+                color: Colors.blueGrey[50],
+              ),
+
+
+              child: DropdownButtonHideUnderline(
+
+                
+                child: DropdownButton<Map<String, dynamic>>(
+                  borderRadius: BorderRadius.circular(20),
+                  dropdownColor: Colors.white,
+                  style: const TextStyle(fontSize: 14,color: Colors.black),
+                  value: _selectedServing,
+                  isExpanded: true,
+                  icon: const Icon(Icons.arrow_drop_down),
+                  items: _servingsList.map((serving) {
+                    final amount = serving['metric_serving_amount'] ?? serving['serving_amount'];
+                    final unit = serving['metric_serving_unit'] ?? serving['serving_unit'] ?? '';
+                    final desc = serving['serving_description'] ?? '';
+                    final displayText = '$amount $unit ($desc)';
+
+                    return DropdownMenuItem(
+
+                      value: serving,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: Text(
+                          displayText,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (val) {
+                    if (val != null) {
+                      setState(() {
+                        _selectedServing = val;
+                        _servingAmount = double.tryParse(val['metric_serving_amount']?.toString() ?? '100') ?? 100;
+                        _controller.text = _servingAmount.toString();
+                      });
+                    }
+                  },
+                ),
+              ),
             ),
+
             const SizedBox(height: 16),
-            Text("Enter amount ($_unit):"),
+            Text("Enter amount ($unit):",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
             const SizedBox(height: 8),
+
             TextField(
               controller: _controller,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                hintText: "Enter serving in $unit",
-                border: OutlineInputBorder(),
+
+                hintText: "Enter serving in $_unit",
+                border: OutlineInputBorder(
+
+
+
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 130, 83, 1), width: 2),
+                  borderRadius: BorderRadius.circular(10),
+                ) ,
+
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 130, 83, 1), width: 2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
             const SizedBox(height: 24),
-            Text("Nutritional Info", style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Text("Calories: ${nutrition['calories']!.toStringAsFixed(1)} kcal"),
-            Text("Protein: ${nutrition['protein']!.toStringAsFixed(1)} g"),
-            Text("Fat: ${nutrition['fat']!.toStringAsFixed(1)} g"),
-            Text("Carbs: ${nutrition['carbs']!.toStringAsFixed(1)} g"),
-            const Spacer(),
+            
             SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  final baseAmount = double.tryParse(_selectedServing!['metric_serving_amount'] ?? '100') ?? 100;
-                  final factor = 100 / baseAmount; // Normalize to per 100g
+              height: 170,
+              width: 200,
+              child: Card(
+                color: Colors.blueGrey[50],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    nutri,
 
-                  mealProvider.addFoodToMeal(
-                    widget.meal,
-                    MealEntry(
-                      food: FoodItem(
-                        id: widget.foodId,
-                        name: widget.foodName,
-                        caloriesPerServing: (double.tryParse(_selectedServing!['calories'] ?? '0') ?? 0) * factor,
-                        proteinPerServing: (double.tryParse(_selectedServing!['protein'] ?? '0') ?? 0) * factor,
-                        fatPerServing: (double.tryParse(_selectedServing!['fat'] ?? '0') ?? 0) * factor,
-                        carbsPerServing: (double.tryParse(_selectedServing!['carbohydrate'] ?? '0') ?? 0) * factor,
-                        servingUnit: unit,
-                      ),
-                      servingAmount: _servingAmount,
-                    ),
-                  );
-
-                  Navigator.pop(context);
-                },
-                child: Text("Add to ${widget.meal}"),
+                    Text("Nutritional Info", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+                    const SizedBox(height: 8),
+                    Text("Calories: ${nutrition['calories']!.toStringAsFixed(1)} kcal"),
+                    Text("Protein: ${nutrition['protein']!.toStringAsFixed(1)} g"),
+                    Text("Fat: ${nutrition['fat']!.toStringAsFixed(1)} g"),
+                    Text("Carbs: ${nutrition['carbs']!.toStringAsFixed(1)} g"),
+                  ],
+                ),
               ),
+            ),
+
+          Spacer(),
+
+            ElevatedButton(
+              onPressed: () {
+                final baseAmount = double.tryParse(_selectedServing!['metric_serving_amount'] ?? '100') ?? 100;
+                final factor = 100 / baseAmount; // Normalize to per 100g
+
+                mealProvider.addFoodToMeal(
+                  widget.meal,
+                  MealEntry(
+                    food: FoodItem(
+                      id: widget.foodId,
+                      name: widget.foodName,
+                      caloriesPerServing: (double.tryParse(_selectedServing!['calories'] ?? '0') ?? 0) * factor,
+                      proteinPerServing: (double.tryParse(_selectedServing!['protein'] ?? '0') ?? 0) * factor,
+                      fatPerServing: (double.tryParse(_selectedServing!['fat'] ?? '0') ?? 0) * factor,
+                      carbsPerServing: (double.tryParse(_selectedServing!['carbohydrate'] ?? '0') ?? 0) * factor,
+                      servingUnit: unit,
+                    ),
+                    servingAmount: _servingAmount,
+                  ),
+                );
+
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+
+                minimumSize: Size(double.infinity, 50),
+                backgroundColor: Color.fromRGBO(0, 130, 83, 1),
+
+                foregroundColor: Colors.white,
+                textStyle: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)
+
+              ),
+              child: Text("Add to ${widget.meal}"),
             )
           ],
         ),

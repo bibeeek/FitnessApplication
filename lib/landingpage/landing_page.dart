@@ -1,18 +1,16 @@
 import 'package:fitnessapp/DashBoard_page/dashboard.dart';
-import 'package:fitnessapp/DashBoard_page/homepage.dart';
-import 'package:fitnessapp/FirstPage/First_AppPage.dart';
+import 'package:fitnessapp/FirstPage/Onboardingscreen.dart';
+import 'package:fitnessapp/Inputs_wt_age_sex/Genderselection.dart';
+import 'package:fitnessapp/LoginRegs/LoginPage.dart';
+import 'package:fitnessapp/provider_classes/Inputs_provider/healthdataprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
+import '../DashBoard_page/homepage.dart';
 import '../FoodApi/food-providerclass/foodprovider.dart';
-import '../Inputs_wt_age_sex/Genderselection.dart';
-import '../LoginRegs/LoginPage.dart' show LoginPage;
 import '../Shared_pref_help/load_provider_from_pref.dart';
 import '../Shared_pref_help/shared_prefs.dart';
-
-
-
 
 class LandingPage extends StatefulWidget {
   @override
@@ -20,7 +18,6 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-
   @override
   void initState() {
     super.initState();
@@ -31,29 +28,35 @@ class _LandingPageState extends State<LandingPage> {
     final user = FirebaseAuth.instance.currentUser;
     final hasUserData = await SharedPrefsHelper.hasUserData();
 
+    final mealProvider = Provider.of<MealProvider>(context, listen: false);
+    final healthProvider = Provider.of<HealthLevelProvider>(context, listen: false);
+
+    await mealProvider.loadMealsFromPrefs();
+    await healthProvider.loadWaterFromPrefs();
+
     if (user == null) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => StartUpPage()));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => OnboardingScreen()),
+      );
     } else if (hasUserData) {
-
       await loadSavedDataIntoProviders(context);
-      await Provider.of<MealProvider>(context, listen: false).loadMealsFromPrefs();
-
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainDashboardWithTabs()));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => MainDashboardWithTabs()),
+      );
     } else {
-
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => GenderSelectionPage()));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => GenderSelectionPage()),
+      );
     }
-    await Provider.of<MealProvider>(context, listen: false).loadMealsFromPrefs();
-
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainDashboardWithTabs()));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(child: CircularProgressIndicator()),
     );
   }
 }
-
-
