@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 
 import '../FirstPage/Animation/SplashScreen.dart';
 import '../FoodApi/food-providerclass/foodprovider.dart';
+import '../LoginRegs/Registration_Page.dart';
 import '../firebase_options.dart';
 
 void main() async {

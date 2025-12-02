@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../FoodApi/food-providerclass/foodprovider.dart';
+import '../provider_classes/Inputs_provider/Genderselection_provider.dart';
+import '../provider_classes/Inputs_provider/activitylevel_provider.dart';
+import '../provider_classes/Inputs_provider/all_inputs_provider.dart';
+import '../provider_classes/Inputs_provider/goal_level_provider.dart';
 import 'DashBoard.dart';
 import 'foodlogpage.dart'; // Your existing dashboard page
 
@@ -19,11 +23,33 @@ class MainDashboardWithTabs extends StatefulWidget {
 class _MainDashboardWithTabsState extends State<MainDashboardWithTabs> {
   int _selectedIndex = 0;
 
-  static final List<Widget> _pages = [
-    DashBoard(),         // Your existing dashboard
-    FoodLogPage(),       // New food log page
-    MorePage(),
-  ];
+
+  List<Widget> getPages(BuildContext context) {
+    final inputProvider = Provider.of<AllInputsProvider>(context);
+    final goalProvider = Provider.of<GoalSelectionProvider>(context);
+    final activityProvider = Provider.of<ActivityLevelProvider>(context);
+    final genderProv = Provider.of<genderProvider>(context);
+
+    return [
+      DashBoard(),
+      FoodLogPage(),
+      BmiResultPage(
+        sex: genderProv.getGender.toString(),
+        age: inputProvider.getSelectedAge,
+        height: inputProvider.getCurrentHeight,
+        currentWeight: inputProvider.getCurrentWeight,
+        activityLevel: activityProvider.getSelectedLevel.toString(),
+        goal: goalProvider.getSelectedGoal.toString(),
+        targetWeight: goalProvider.getSelectedGoal == 'gain' || goalProvider.getSelectedGoal == 'lose'
+            ? inputProvider.getTargetWeight
+            : null,
+        goalAchieveTime: goalProvider.getSelectedGoal == 'gain' || goalProvider.getSelectedGoal == 'lose'
+            ? inputProvider.getGoalAchieveTime
+            : null,
+      ),
+    ];
+  }
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -35,7 +61,7 @@ class _MainDashboardWithTabsState extends State<MainDashboardWithTabs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: getPages(context)[_selectedIndex],
 
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor:  Color.fromRGBO(0, 130, 83, 1),

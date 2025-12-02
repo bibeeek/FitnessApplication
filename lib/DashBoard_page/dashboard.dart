@@ -225,11 +225,11 @@ class _DashBoardState extends State<DashBoard> {
 
                                   Text(
                                     'Calories: ${totalCalories.toStringAsFixed(0)} / ${reqCal.toStringAsFixed(0)} kcal',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 11),
                                   ),
                                   SizedBox(height: 5,),
                                   SizedBox(
-                                    width:150,
+                                    width:130,
                                     child: LinearProgressIndicator(
                                       value: calPercent,
                                       color: calColor,
@@ -244,12 +244,12 @@ class _DashBoardState extends State<DashBoard> {
                                 children: [
                                   Text(
                                     'Protein: ${totalProtein.toStringAsFixed(1)} g / ${reqProtein.toStringAsFixed(1)} g',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 11),
                                   ),
                                   SizedBox(height: 5,),
 
                                   SizedBox(
-                                    width:150,
+                                    width:130,
                                     child: LinearProgressIndicator(
                                       value: proteinPercent,
                                       color: proteinPercent >= 1 ? Colors.red : Colors.blue,
@@ -273,10 +273,10 @@ class _DashBoardState extends State<DashBoard> {
                                   children: [
                                     Text(
                                       'Carbs: ${totalCarbs.toStringAsFixed(1)} g / ${reqCarbs.toStringAsFixed(1)} g',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 11),
                                     ),
                                     SizedBox(
-                                      width: 150,
+                                      width: 130,
                                       child: LinearProgressIndicator(
                                         value: carbPercent,
                                         color: carbPercent >= 1 ? Colors.red : Colors.orange,
@@ -291,10 +291,10 @@ class _DashBoardState extends State<DashBoard> {
                                   children: [
                                     Text(
                                       'Fat: ${totalFat.toStringAsFixed(1)}  g  / ${reqFat.toStringAsFixed(1)}  g',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 11),
                                     ),
                                     SizedBox(
-                                      width:150,
+                                      width:130,
                                       child: LinearProgressIndicator(
                                         value: fatPercent,
                                         color: fatPercent >= 1 ? Colors.red : Colors.yellow,
@@ -365,9 +365,9 @@ class _DashBoardState extends State<DashBoard> {
                                 }
                               },
                               icon: Icon(Icons.remove,color: Colors.white,),
-                              label: Text("Remove 250ml",style: TextStyle(color: Colors.white)),
+                              label: Text("250ml",style: TextStyle(color: Colors.white)),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.redAccent,
+                                backgroundColor: Colors.red,
                               ),
                             ),
                           ],

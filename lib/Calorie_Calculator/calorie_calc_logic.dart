@@ -5,9 +5,9 @@ double calculateDailyCalories({
   required double currentWeight,
   required String activityLevel,
   required String goal,
-  double? targetWeight, // total target weight (not needed for calorie calc)
+  double? targetWeight,
   double?
-  goalAchieveTime, // interpreted as weekly weight change in kg (e.g. 0.25)
+  goalAchieveTime,
 }) {
   // Step 1: Calculate BMR
   double bmr;
@@ -41,15 +41,15 @@ double calculateDailyCalories({
   if ((goal == 'gain' || goal == 'lose') &&
       goalAchieveTime != null &&
       goalAchieveTime > 0) {
-    // 1 kg of fat ~ 7700 kcal
+
     double dailyCalorieChange = (goalAchieveTime * 7700) / 7;
 
     double adjustedCalories =
         (goal == 'gain')
             ? tdee + dailyCalorieChange
             : tdee - dailyCalorieChange;
-    // Set a sensible minimum calorie limit
-    if (adjustedCalories < 1000) adjustedCalories = 1000;
+
+    if (adjustedCalories < 1000) adjustedCalories = 1500;
     return adjustedCalories;
   }
   // If maintain or no goalAchieveTime, just return TDEE

@@ -14,24 +14,15 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  bool isPasswordVisible = false;
 
-
-
-  bool  isPasswordVisible = false;
-
-    var emailController= TextEditingController();
-    var passwordController= TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
-
-
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: Colors.blueGrey[50],
-
-
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -40,9 +31,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
-                SizedBox(height: 100,),
-
+                SizedBox(height: 100),
                 Text(
                   "Enter Valid Email & Password To Login",
                   style: TextStyle(
@@ -51,19 +40,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     color: Colors.black,
                   ),
                 ),
-                  SizedBox(height: 20),
+                SizedBox(height: 20),
 
                 // Email TextField
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextField(
-
                     controller: emailController,
                     textInputAction: TextInputAction.next,
                     autocorrect: false,
                     keyboardType: TextInputType.emailAddress,
                     autofillHints: [AutofillHints.email],
-
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -97,15 +84,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
 
-
-
                 // Password TextField
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextField(
-
                     controller: passwordController,
-
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -154,90 +137,109 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
 
+                SizedBox(height: 20),
 
-
-                SizedBox(height: 20,),
-
+                // Register Button
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical:5 ,horizontal: 80),
-                  child: ElevatedButton(onPressed: () async {
-                    String mail=emailController.text.trim();
-                    String pass=passwordController.text.trim();
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 5, horizontal: 80),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      String mail = emailController.text.trim();
+                      String pass = passwordController.text.trim();
 
+                      final emailRegex =
+                      RegExp(r'^[\w-\.]+@(gmail\.com|yahoo\.com)$');
+                      final passwordRegex =
+                      RegExp(r'^(?=.*[A-Z]).{9,}$');
 
-                    if(mail.isEmpty){
+                      if (mail.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Please Enter Email")));
+                      } else if (!emailRegex.hasMatch(mail)) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                "Incorrect Email Format")));
+                      } else if (pass.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Please Enter Password")));
+                      } else if (!passwordRegex.hasMatch(pass)) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              "Password must be at least 9 characters and include 1 uppercase letter"),
+                        ));
+                      } else {
+                        try {
+                          await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                              email: mail, password: pass);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Registration Successful")));
+                          debugPrint("Registration Successful");
 
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Enter Email")));
-                    }
-                    else if(pass.isEmpty){
-
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Enter Password")));
-                    }
-                    else{
-
-                    await  FirebaseAuth.instance.createUserWithEmailAndPassword(email: mail, password: pass).then((value) {
-
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Registration Successful")));
-                      debugPrint("Registration Successful");
-
-
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPaage()));
-
-
-                      }).onError((error, stackTrace) {
-
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
-
-
-
-                    });
-
-
-                    }
-
-
-
-                  },
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPaage()));
+                        } catch (error) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(error.toString())));
+                        }
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 50),
                         elevation: 5,
-                        backgroundColor:  Color.fromRGBO(0, 130, 83, 1),
+                        backgroundColor: Color.fromRGBO(0, 130, 83, 1),
                         side: BorderSide(
-                          color:  Color.fromRGBO(0, 130, 83, 1),
+                          color: Color.fromRGBO(0, 130, 83, 1),
                           width: 2,
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
-                        )
+                        )),
+                    child: Text(
+                      "Register",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
-
-                    child: Text("Register",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),),),
+                  ),
                 ),
-                SizedBox(height: 15,),
+                SizedBox(height: 15),
 
-
-                RichText(text: TextSpan(
-                  children: [
-                    TextSpan(text: 'Already have an account? ',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.black54)),
-
-                    TextSpan(text: 'Sign In',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.blue.shade900)
-                        ,recognizer: TapGestureRecognizer()..onTap = (){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPaage()));
-                        }
-                    ),
-
-                  ],
+                // Sign In Text
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: 'Already have an account? ',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black54)),
+                      TextSpan(
+                          text: 'Sign In',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade900),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPaage()));
+                            }),
+                    ],
+                  ),
                 ),
-                ),
-
-
               ],
-
             ),
           ),
         ),
       ),
-
     );
   }
 }

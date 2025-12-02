@@ -55,14 +55,14 @@ class _StepCounterWidgetState extends State<StepCounterWidget> {
           children: [
             Row(
               children: [
-                Icon(Icons.directions_walk, size: 36, color: Colors.blue.shade700),
+                Icon(Icons.directions_walk, size: 36, color: Colors.black),
                 const SizedBox(width: 12),
                 Text(
                   "Steps Today",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
-                    color: Colors.blue.shade900,
+                    color: Colors.black
                   ),
                 ),
               ],
@@ -73,7 +73,7 @@ class _StepCounterWidgetState extends State<StepCounterWidget> {
               style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue.shade900,
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 12),
@@ -88,7 +88,7 @@ class _StepCounterWidgetState extends State<StepCounterWidget> {
               stepProvider.percentageText,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.blue.shade700,
+                color: Colors.black
               ),
             ),
           ],

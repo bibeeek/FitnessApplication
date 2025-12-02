@@ -100,4 +100,33 @@ class MealProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> checkAndResetDailyMeals() async {
+    final prefs = await SharedPreferences.getInstance();
+    final lastUpdatedStr = prefs.getString('lastMealUpdateDate');
+    final now = DateTime.now();
+
+    if (lastUpdatedStr != null) {
+      final lastUpdated = DateTime.parse(lastUpdatedStr);
+
+      final isSameDay = now.year == lastUpdated.year &&
+          now.month == lastUpdated.month &&
+          now.day == lastUpdated.day;
+
+      if (!isSameDay) {
+        // 🔥 New day detected – reset meals
+        clearAllMeals(); // clears _meals map & notifies
+        await prefs.setString('lastMealUpdateDate', now.toIso8601String());
+
+        // Also remove meals from SharedPreferences
+        for (var meal in _meals.keys) {
+          await prefs.remove('meal_$meal');
+        }
+      }
+    } else {
+      // First time use – store the date
+      await prefs.setString('lastMealUpdateDate', now.toIso8601String());
+    }
+  }
+
+
 }
